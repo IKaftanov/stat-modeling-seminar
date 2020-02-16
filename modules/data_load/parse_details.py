@@ -1,15 +1,15 @@
 import asyncio
-import time
-import os
 import logging
 import logging.config
-import yaml
-
-from fas_gov import DetailView
-from aiofile import AIOFile
-import requests
+import os
+import time
 from random import randint
 
+import requests
+import yaml
+from aiofile import AIOFile
+
+from fas_gov import DetailView
 
 BASE_DIR = "detail_data"
 CHILD_DIR = "documents"

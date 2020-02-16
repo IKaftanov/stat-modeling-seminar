@@ -1,17 +1,14 @@
 import asyncio
-import os
 import json
-import time
 import logging
 import logging.config
+import os
+import time
+
 import yaml
 from aiofile import AIOFile
+
 from fas_models import Case, Document
-
-
-import win32file
-win32file._setmaxstdio(2048)
-
 
 ROOT_DIR = "detail_data"
 DOCS_DIR = "documents"

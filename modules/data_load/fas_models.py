@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup
-import re
 import datetime
+import re
 import uuid
+
+from bs4 import BeautifulSoup
 
 
 def _get_text_from_tag(item):

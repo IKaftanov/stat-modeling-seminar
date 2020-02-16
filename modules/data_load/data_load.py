@@ -1,11 +1,11 @@
 import asyncio
-import time
-import aiohttp
-from random import randint
-import os
 import logging
 import logging.config
+import os
+import time
+from random import randint
 
+import aiohttp
 import yaml
 
 from fas_gov import Pages
