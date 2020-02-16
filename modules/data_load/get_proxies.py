@@ -7,7 +7,7 @@ after this cope final list to PROXIES variable
 TODO: automate it
 """
 
-s = """72.35.40.34	8080	US	United States	elite proxy	no	yes	7 seconds ago"""
+s = """144.217.163.138	8080	CA	Canada	anonymous	no	no	1 minute ago"""
 
 result = []
 
