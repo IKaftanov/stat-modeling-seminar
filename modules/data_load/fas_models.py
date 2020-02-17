@@ -21,6 +21,68 @@ def _convert_timestamp(date):
     return date
 
 
+class Page:
+    def __init__(self, html_document):
+        self.__soup = BeautifulSoup(html_document, "html.parser")
+
+    def _card(self, card_object):
+        rows = card_object.find_all("div", {"class": "row"})
+        head = rows[0].find("a", href=True)
+        title_href, title = head["href"], head.text
+        date = rows[0].find("div", {"class": "col-sm-2 text-right"}).text
+        date = re.findall(r"(\d{2}\.\d{2}\.\d{4})", date)[0] if date else None
+
+        target = rows[1].find("a", href=True)
+        target_href, target_name = target["href"], target.text
+        if len(rows) > 2:
+            tags = []
+            for tag in rows[2].find_all("a", {"class": "badge badge-disabled"}):
+                tag_name = tag.text.strip("\n").strip(" ")
+                tags.append({"tag_href": tag["href"], "tag_name": tag_name})
+
+            department = rows[2].find("div", {"class": "col-sm-3 text-muted text-right"})
+            if department:
+                department = department.find("a")
+                department_href, department_name = department["href"], department.text
+            else:
+                department_href, department_name = None, None
+        else:
+            tags = []
+            department_href, department_name = None, None
+
+        model = {
+            "title_href": title_href,
+            "title": title,
+            "date": date,
+            "target_href": target_href,
+            "target_name": target_name,
+            "tags": tags,
+            "department_href": department_href,
+            "department_name": department_name
+        }
+
+        return model
+
+    @property
+    def items(self):
+        elements = self.soup.find_all("div", {"class": "grey-card"})
+        data = []
+        for element in elements:
+            data.append(self._card(element))
+        return data
+
+    @property
+    def links(self):
+        elements = self.__soup.find_all("div", {"class": "grey-card"})
+        data = []
+        for element in elements:
+            rows = element.find_all("div", {"class": "row"})
+            head = rows[0].find("a", href=True)
+            title_href = head["href"]
+            data.append(title_href)
+        return data
+
+
 class Case:
     def __init__(self, _id, html_document):
         self.id = _id
